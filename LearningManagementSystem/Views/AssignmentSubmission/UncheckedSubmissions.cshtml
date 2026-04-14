@@ -1,0 +1,70 @@
+﻿@{
+    ViewData["Title"] = "Unchecked Submissions";
+}
+
+
+@model List<AssignmentSubmission>
+
+<h3 class="mb-4">Unchecked Submissions</h3>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-success">
+        🎉 All submissions are checked!
+    </div>
+}
+else
+{
+    <div class="row">
+        @foreach (var submission in Model)
+        {
+            <div class="col-md-6 mb-4">
+                <div class="card shadow-sm border-0">
+
+                    <div class="card-body">
+
+                        <h5 class="fw-bold mb-2">
+                            @submission.Assignment.Title
+                        </h5>
+
+                        <p class="mb-1">
+                            <strong>Student:</strong> @submission.ApplicationUser.UserName
+                        </p>
+
+                        <p class="mb-1">
+                            <strong>Submitted At:</strong>
+                            @submission.SubmittedAt.ToString("MMMM dd, yyyy hh:mm tt")
+                        </p>
+
+                        <p class="mb-3">
+                            <strong>Max Degree:</strong> @submission.Assignment.TotalDegree
+                        </p>
+
+                        <a href="/@submission.SolutionFilePath" target="_blank" class="btn btn-primary btn-sm mb-3">
+                            View Solution File
+                        </a>
+
+                        <form asp-controller="AssignmentSubmission" asp-action="SaveSubmissionDegree" method="post">
+
+                            <input type="hidden" name="assignmentId" value=@submission.AssignmentId />
+                            <input type="hidden" name="studentId" value="@submission.ApplicationUserId" />
+                            <div class="mb-2">
+                                <label class="fw-bold">Enter Degree</label>
+                                <input type="number" name="degree"
+                                       class="form-control"
+                                       min="0"
+                                       max="@submission.Assignment.TotalDegree"
+                                       required />
+                            </div>
+
+                            <button type="submit" class="btn btn-success w-100">
+                                Save Degree
+                            </button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}

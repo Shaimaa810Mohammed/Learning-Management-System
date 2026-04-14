@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "Enrolled Students";
+    int cnt = 1;
+    int courseId = (int)ViewBag.courseId;
+}
+
+@model List<ApplicationUser>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th scope="col" class="fw-bold">#</th>
+            <th scope="col" class="fw-bold">Name</th>
+            <th scope="col" class="fw-bold">UserName</th>
+            <th scope="col" class="fw-bold">Email</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var student in Model)
+        {
+            string fullName = student.FName + " " + student.LName;
+            <tr>
+                <th scope="row">@cnt</th>
+                <td>@fullName </td>
+                <td>@student.UserName</td>
+                <td>@student.Email</td>
+                <td>
+                    <a class="btn btn-primary" asp-controller="Enrollment" asp-action="UnEnroll" asp-route-studentId="@student.Id" asp-route-courseId=@courseId
+                       onclick="return confirm('Are you sure you want to UnEnroll this Student?');">UnEnroll</a>
+                </td>
+
+            </tr>
+            cnt++;
+        }
+    </tbody>
+</table>
+
+
+

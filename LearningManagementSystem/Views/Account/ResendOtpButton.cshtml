@@ -1,0 +1,24 @@
+﻿@{
+    ViewData["Title"] = "Resend OTP";
+    string id = (string)ViewBag.Id;
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <!-- Card frame starts -->
+            <div class="card shadow p-4">
+                <div class="card-body">
+                    <h5 class="card-title mb-4 text-center">Resend OTP</h5>
+                    <form asp-controller="Account" asp-action="ResendOtp" asp-route-id=@id method="post">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <button type="submit" class="btn btn-primary w-100">Resend OTP</button>
+                    </form>
+                </div>
+            </div>
+            <!-- Card frame ends -->
+        </div>
+    </div>
+</div>
+
+<partial name="_ValidationScriptsPartial" />

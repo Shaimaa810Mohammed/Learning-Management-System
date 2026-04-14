@@ -1,0 +1,41 @@
+﻿@{
+    ViewData["Title"] = "Course Questions";
+    int cnt = 1;
+}
+
+@model List<Question>
+
+
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th scope="col" class="fw-bold">#</th>
+            <th scope="col" class="fw-bold">Question Text</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var question in Model)
+        {
+            <tr>
+                <th scope="row">@cnt</th>
+                <td>@question.QuestionText </td>
+
+                <td>
+                    <a class="btn btn-primary" asp-controller="Question" asp-action="UpdateQuestion" asp-route-questionId="@question.Id">Update</a>
+                </td>
+
+                <td>
+                    <a class="btn btn-primary" asp-controller="Question" asp-action="DeleteQuestion" asp-route-questionId="@question.Id"
+                       onclick="return confirm('Are you sure you want to Delete this Question?');">Delete</a>
+                </td>
+
+            </tr>
+            cnt++;
+        }
+    </tbody>
+</table>
+
+
+
+

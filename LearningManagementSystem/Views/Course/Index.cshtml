@@ -1,0 +1,83 @@
+﻿@using System.Security.Claims
+@{
+    ViewData["Title"] = "All Courses";
+}
+
+@model List<Course>
+
+
+
+<div class="container mt-4">
+    <h2 class="mb-4">All Courses</h2>
+
+    <div class="row">
+        @foreach (var course in Model)
+        {
+            <div class="col-md-4 col-sm-6 mb-4">
+                <div class="card shadow h-100">
+
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title text-center">@course.Title</h5>
+
+                        <p class="card-text text-muted">
+                            @course.Description
+                        </p>
+
+                        <p class="card-text">
+                            <strong>Duration: </strong>
+                            @{
+                                var duration = course.duration + " Hours";
+                            }
+                            @duration 
+                        </p>
+
+                        <p class="card-text">
+                            <strong>Instructor: </strong>
+                            @{
+                                var instructorName = course.ApplicationUser.FName + " " + course.ApplicationUser.LName;
+                            }
+                            @instructorName
+                        </p>
+
+                        @{
+                            string studentId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                            bool isEnrollrd = false;
+                            var exist = course.Enrollments?.FirstOrDefault(e => e.ApplicationUserId == studentId && e.CourseId == course.Id);
+                            if (exist != null)
+                            {
+                                isEnrollrd = true;
+                            }
+                        }
+
+                        @if (isEnrollrd || User.IsInRole("Admin") || User.IsInRole("Instructor"))
+                        {
+                            <div class="mt-auto">
+                                <a asp-controller="Course"
+                                   asp-action="Details"
+                                   asp-route-Id=@course.Id
+                                   class="btn btn-primary w-100">
+                                    View Details
+                                </a>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="mt-auto">
+                                <a asp-controller="Enrollment"
+                                   asp-action="Enroll"
+                                   asp-route-courseId=@course.Id
+                                   class="btn btn-primary w-100">
+                                    Enroll
+                                </a>
+                            </div>
+                        }
+
+                       
+                    </div>
+
+                </div>
+            </div>
+        }
+    </div>
+</div>
+

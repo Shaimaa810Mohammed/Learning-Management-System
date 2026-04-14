@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "Create Course";
+}
+
+@using LearningManagementSystem.ViewModels
+@model CourseViewModel
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <!-- Card frame starts -->
+            <div class="card shadow p-4">
+                <div class="card-body">
+                    <h5 class="card-title mb-4 text-center">Create Course</h5>
+                    <form asp-controller="Course" asp-action="CreateCourse" method="post">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Title"></label>
+                            <input class="form-control" asp-for="Title">
+                            <span asp-validation-for="Title" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Description"></label>
+                            <input class="form-control" asp-for="Description">
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Duration"></label>
+                            <input class="form-control" asp-for="Duration">
+                            <span asp-validation-for="Duration" class="text-danger"></span>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">Create</button>
+                    </form>
+                </div>
+            </div>
+            <!-- Card frame ends -->
+        </div>
+    </div>
+</div>
+
+<partial name="_ValidationScriptsPartial" />
+
+

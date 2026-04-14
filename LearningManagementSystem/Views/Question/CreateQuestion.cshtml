@@ -1,0 +1,128 @@
+﻿@using LearningManagementSystem.Enums
+@using LearningManagementSystem.ViewModels
+@{
+    ViewData["Title"] = "Create Question";
+}
+
+@model QuestionViewModel
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <!-- Card frame starts -->
+            <div class="card shadow p-4">
+                <div class="card-body">
+                    <h5 class="card-title mb-4 text-center">Create Question</h5>
+                    <form asp-controller="Question" asp-action="SaveCreate" method="post">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+
+                        <input type="hidden" asp-for="CourseId">
+
+                        <div class="form-group mb-3">
+                            <label asp-for="QuestionText"></label>
+                            <input class="form-control" asp-for="QuestionText">
+                            <span asp-validation-for="QuestionText" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="QuestionType"></label>
+                            <div>
+                                @if (Model?.QuestionType == QuestionType.TrueFalse)
+                                {
+                                    <input type="radio" asp-for="QuestionType" value="@QuestionType.TrueFalse" checked>
+                                }
+                                else
+                                {
+                                    <input type="radio" asp-for="QuestionType" value="@QuestionType.TrueFalse">
+                                }
+                                <label>True / False</label>
+                            </div>
+                            <div>
+                                @if (Model?.QuestionType == QuestionType.MCQ)
+                                {
+                                    <input type="radio" asp-for="QuestionType" value="@QuestionType.MCQ" checked>
+                                }
+                                else
+                                {
+                                    <input type="radio" asp-for="QuestionType" value="@QuestionType.MCQ">
+                                }
+                                <label>MCQ</label>
+                            </div>
+                            <div>
+                                @if (Model?.QuestionType == QuestionType.ShortAnswer)
+                                {
+                                    <input type="radio" asp-for="QuestionType" value="@QuestionType.ShortAnswer" checked>
+                                }
+                                else
+                                {
+                                    <input type="radio" asp-for="QuestionType" value="@QuestionType.ShortAnswer">
+                                }
+                                <label>Short Answer</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="AnswerOptions"></label>
+                            <div id="optionsContainer">
+                                @for (int i = 0; i < Model?.AnswerOptions.Count; i++)
+                                {
+                                    <div class="d-flex gap-2 mb-2 option-item">
+                                        <input name="AnswerOptions[@i]" value="@Model.AnswerOptions[i]" class="form-control" />
+                                        <button type="button" class="btn btn-danger removeOption">X</button>
+                                    </div>
+                                }
+                            </div>
+
+                            <button type="button" class="btn btn-secondary mt-2" id="addOptionBtn">
+                                + Add Option
+                            </button>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="CorrectAnswer"></label>
+                            <input class="form-control" asp-for="CorrectAnswer">
+                            <span asp-validation-for="CorrectAnswer" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="MaxDegree"></label>
+                            <input class="form-control" asp-for="MaxDegree">
+                            <span asp-validation-for="MaxDegree" class="text-danger"></span>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">Create</button>
+                    </form>
+                </div>
+            </div>
+            <!-- Card frame ends -->
+        </div>
+    </div>
+</div>
+
+<partial name="_ValidationScriptsPartial" />
+
+<script>
+    let optionIndex = @Model.AnswerOptions.Count;
+
+    document.getElementById("addOptionBtn").addEventListener("click", function () {
+
+        let container = document.getElementById("optionsContainer");
+
+        let div = document.createElement("div");
+        div.classList.add("d-flex", "gap-2", "mb-2", "option-item");
+
+        div.innerHTML = `
+            <input name="AnswerOptions[${optionIndex}]" class="form-control" />
+            <button type="button" class="btn btn-danger removeOption">X</button>
+        `;
+
+        container.appendChild(div);
+        optionIndex++;
+    });
+
+    document.addEventListener("click", function (e) {
+        if (e.target.classList.contains("removeOption")) {
+            e.target.parentElement.remove();
+        }
+    });
+</script>

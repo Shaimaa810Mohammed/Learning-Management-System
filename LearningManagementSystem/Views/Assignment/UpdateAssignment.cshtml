@@ -1,0 +1,55 @@
+﻿@{
+    ViewData["Title"] = "Update Assignment";
+    int assignmentId = (int)ViewBag.assignmentId;
+}
+
+@using LearningManagementSystem.ViewModels
+@model UpdateAssignmentViewModel
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <!-- Card frame starts -->
+            <div class="card shadow p-4">
+                <div class="card-body">
+                    <h5 class="card-title mb-4 text-center">Update Assignment</h5>
+                    <form asp-controller="Assignment" asp-action="SaveUpdate" asp-route-assignmentId=@assignmentId method="post">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="Title"></label>
+                            <input class="form-control" asp-for="Title">
+                            <span asp-validation-for="Title" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="StartTime"></label>
+                            <input class="form-control" asp-for="StartTime" type="datetime-local">
+                            <span asp-validation-for="StartTime" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="EndTime"></label>
+                            <input class="form-control" asp-for="EndTime" type="datetime-local">
+                            <span asp-validation-for="EndTime" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label asp-for="MaxDegree"></label>
+                            <input class="form-control" asp-for="MaxDegree">
+                            <span asp-validation-for="MaxDegree" class="text-danger"></span>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100">Update</button>
+                    </form>
+                </div>
+            </div>
+            <!-- Card frame ends -->
+        </div>
+    </div>
+</div>
+
+<partial name="_ValidationScriptsPartial" />
+
+
+

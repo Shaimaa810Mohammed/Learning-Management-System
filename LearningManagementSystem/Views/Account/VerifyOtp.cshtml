@@ -1,0 +1,43 @@
+﻿@using LearningManagementSystem.ViewModels
+@using System.Security.Claims
+@model VerifyOtpViewModel
+@{
+    ViewData["Title"] = "Verify OTP";
+    string email = (string)ViewBag.Email;
+}
+
+<div class="alert alert-success">
+    OTP has been sent to {@email}. Please check your inbox.
+</div>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <!-- Card frame starts -->
+            <div class="card shadow p-4">
+                <div class="card-body">
+                    <h5 class="card-title mb-4 text-center">Verify OTP</h5>
+                    <form asp-controller="Account" asp-action="VerifyOtp" method="post">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="form-group mb-3">
+                            <input type="hidden" class="form-control" asp-for="Id">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label asp-for="OTP"></label>
+                            <input class="form-control" asp-for="OTP">
+                            <span asp-validation-for="OTP" class="text-danger"></span>
+                        </div>
+                       
+                        <button type="submit" class="btn btn-primary w-100">Verify</button>
+                    </form>
+                </div>
+            </div>
+            <!-- Card frame ends -->
+        </div>
+    </div>
+</div>
+
+<partial name="_ValidationScriptsPartial" />
+
+
+

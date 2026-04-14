@@ -1,0 +1,31 @@
+﻿@using Microsoft.AspNetCore.Identity
+@{
+    ViewData["Title"] = "Roles";
+    int counter = 1;
+}
+
+@model List<IdentityRole>
+
+<a class="btn btn-primary m-3" asp-controller="Role" asp-action="AddRole">Add Role</a>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th scope="col" class="fw-bold">#</th>
+            <th scope="col" class="fw-bold">Role Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th scope="row">@counter</th>
+                <td>@item.Name</td>
+                @{
+                    counter++;
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+

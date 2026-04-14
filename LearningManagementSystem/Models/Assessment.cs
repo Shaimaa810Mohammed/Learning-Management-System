@@ -1,0 +1,16 @@
+﻿namespace LearningManagementSystem.Models
+{
+	public class Assessment
+	{
+		public int Id { get; set; }
+		public DateTime StartTime { get; set; }
+		public DateTime EndTime { get; set; }
+		public string Title { get; set; }
+		public int TotalDegree { get; set; }
+
+
+		public int CourseId { get; set; }
+		public Course Course { get; set; }
+
+	}
+}
