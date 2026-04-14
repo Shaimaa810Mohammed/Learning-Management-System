@@ -18,8 +18,7 @@ Admins manage users, system settings, and overall course management.
 ### 🔹 Admin
 - Manage system settings.
 - Create and manage user accounts.
-- Create and manage courses.
-- View enrolled students in each course.
+- manage courses.
 
 ### 🔹 Instructor
 - Create and manage courses (title, description, duration, etc.).
