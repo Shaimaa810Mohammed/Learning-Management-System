@@ -89,6 +89,7 @@ Admins manage users, system settings, and overall course management.
 ## 🛠️ Technologies Used
 - ASP.NET Core (MVC)
 - Entity Framework Core (EF Core)
+- LINQ
 - SQL Server
 - HTML, CSS, JavaScript
 - Bootstrap
