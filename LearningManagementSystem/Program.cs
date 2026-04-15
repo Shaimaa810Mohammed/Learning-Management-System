@@ -40,7 +40,7 @@ builder.Services.AddDbContext<DBContext>(options =>
 // add Identity services
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 {
-    //options.User.RequireUniqueEmail = true;
+    options.User.RequireUniqueEmail = true;
 })
 	.AddEntityFrameworkStores<DBContext>()
     .AddDefaultTokenProviders();
